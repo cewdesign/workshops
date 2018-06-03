@@ -53,7 +53,14 @@ enabled=1'
 
 9. Let's assume 64-bit target only for right now.
 
-10. 
+10. Discovered yum_repository resource (https://docs.chef.io/resource_yum_repository.html), let's switch to that:
+    ` yum_repository 'mongodb' do
+description "Mongo DB Repo"
+baseurl "http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/"
+gpgcheck = 0
+enabled = 1 
+action :create
+end`
 
 4. Log-in to my free hosted chef-server on manage.chef.io (left over from tutorials)
 
