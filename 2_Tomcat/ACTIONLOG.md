@@ -41,6 +41,7 @@
    > knife cookbook upload java
 
 8. Update target's run list to include java using chef manage ui. Cloud have also used:
+   
    > knife node run_list add NODE_NAME java::openjdk
 
 9. Run chef-client manually via ssh on target
@@ -49,4 +50,50 @@
 
    Success. Openjdk installed.
 
-10. 
+10. Add group creation for tomcat group
+
+        `group 'tomcat' do
+            append true
+        end`
+
+11. Add user creation for tomcat user
+
+        `user 'tomcat' do
+            gid                        'tomcat'
+            home                       '/opt/tomcat'
+            manage_home                False
+            shell                      '/bin/nologin'
+        end`
+
+12. Retrieve the file.
+
+        `remote_file 'apache-tomcat-8.5.31.tar.gz' do
+            source 'http://mirror.csclub.uwaterloo.ca/apache/tomcat/tomcat-8/v8.5.31/bin/apache-tomcat-8.5.31.tar.gz'
+            path '/tmp/apache-tomcat-8.5.31.tar.gz'
+            action :create_if_missing
+            mode 00644
+        end`
+
+13. Expand the file
+
+        `bash 'extract_module' do
+            cwd ::'/tmp/'
+            code <<-EOH
+            mkdir -p '/opt/tomcat'
+            tar xvf /tmp/apache-tomcat-8.5.31.tar.gz -C /opt/tomcat --strip-components=1
+            EOH
+        end`
+
+14. Roll the chmods, chgrp and chown to the bash statement
+
+        `bash 'extract_module' do
+            cwd '/opt/tomcat'
+            code <<-EOH
+            mkdir -p '/opt/tomcat'
+            tar xvf /tmp/apache-tomcat-8.5.31.tar.gz -C /opt/tomcat --strip-components=1
+            chgrp -R tomcat /opt/tomcat
+            sudo chmod -R g+r conf
+            sudo chmod g+x conf
+            sudo chown -R tomcat webapps/ work/ temp/ logs/
+            EOH
+        end`
