@@ -5,13 +5,13 @@
 #
 #
 #
-# Install OpenJDK 7 JDK using yum, run this command:
-# Use the supermarket cookbook
-#
+
+include_recipe 'java'
+
 
 # yum_package(java)
 # ```shell
-# $ sudo yum install java-1.7.0-openjdk-devel
+# $ sudo yum install 
 # ```
 # # Manual Installation Instructions for Tomcat
 
