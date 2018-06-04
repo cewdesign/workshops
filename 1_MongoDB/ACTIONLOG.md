@@ -37,6 +37,9 @@
    > cat /etc/yum.repos.d/mongodb.repo
    Success!
 
+## Continuing
+03-Jun-2018
+
 7. Modify test.rb with correct content
 
        `file '/etc/yum.repos.d/mongodb.repo' do
@@ -85,19 +88,36 @@
         # build yum repo
         case node['platform_family']
         when 'rhel', 'amazon', 'fedora'
-          yum_repository 'mongodb-org-3.6' do
-            description 'MongoDB Repository'
-            baseurl package_repo_url
-            gpgcheck false
-            enabled true
-          end
+            yum_repository 'mongodb-org-3.6' do
+                description 'MongoDB Repository'
+                baseurl package_repo_url
+                gpgcheck false
+                enabled true
+            end
         end`
 
-4. Log-in to my free hosted chef-server on manage.chef.io (left over from tutorials)
+    Working!
 
-5. Bootstrap the new EC2 instance to my existing chef-server
-   > knife bootstrap ec2-18-218-146-148.us-east-2.compute.amazonaws.com --ssh-user ec2-user --sudo --identity-file workshop_key.pem --node-name workshop_target
+14. Now need to start it. Add
 
-6. Confirm connection on chef manage
+        `service 'mongod' do
+            action :start
+        end`
 
-7. 
+    Sucess!
+
+15. Now ensure it is enable to survive a restart.
+
+        `service 'mongod' do
+            action [ :enable, :start ]
+        end`
+
+    And follow the instructions in the exercise issue the following command
+        
+        `execute 'chkconfig_mongod' do
+            command 'chkconfig mongod on'
+        end`
+
+16. Done basic recipe Dev.
+
+
