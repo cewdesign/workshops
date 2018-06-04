@@ -5,29 +5,18 @@
 #
 #
 #
-
-include_recipe 'java'
-
-
-# yum_package(java)
-# ```shell
-# $ sudo yum install 
-# ```
-# # Manual Installation Instructions for Tomcat
-
-# <!-- Install OpenJDK 7 JDK using yum, run this command:
-
-# ```shell
-# $ sudo yum install java-1.7.0-openjdk-devel
-# ```
-#  -->
+# Downloaded Java cookbook from supermarket, added to runlist of node.
+#
 # Create a user for tomcat
-
-# ```
-# $ sudo groupadd tomcat
-# $ sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
-# ```
-
+group 'tomcat' do
+    append true
+end
+user 'tomcat' do
+    gid 'tomcat'
+    home '/opt/tomcat'
+    manage_home false
+    shell '/bin/nologin'
+end
 # Download the Tomcat Binary
 
 # > NOTE: A specific binary will be mentioned below but it will likely be out of date. You can find the binaries for Tomcat 8 here at https://archive.apache.org/dist/tomcat/tomcat-8/
