@@ -67,7 +67,7 @@
             action :create
         end`
 
-11. Seem to be encountering a conflict between my recipe and my yum repo. Keeps saying no suitable version. Let's try to mitigate that problem by adding some versioning logic. No longer need to assum 64-bit target as we are catching this now.
+11. Seem to be encountering a conflict between my recipe and my yum repo. Keeps saying no suitable version. Let's try to mitigate that problem by adding some versioning logic. No longer need to assum 64-bit target as we are catching this now. Found some help in the office mongo cookbook in the supermarket. 
 
 12. Added versioning logic, build structure but limit case to rhel for now
 
@@ -119,5 +119,6 @@
         end`
 
 16. Done basic recipe Dev.
+
 
 
