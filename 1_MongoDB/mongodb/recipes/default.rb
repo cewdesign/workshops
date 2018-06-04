@@ -18,6 +18,8 @@ when 'redhat', 'oracle', 'centos'
 end
 Chef::Log.warn("package_repo_url: " + package_repo_url) # testing
 #
+#
+#
 # build yum repo
 case node['platform_family']
 when 'rhel', 'amazon', 'fedora'
@@ -28,7 +30,11 @@ when 'rhel', 'amazon', 'fedora'
     enabled true
   end
 end
-
+#
+#
+#
+# install mongo db
+yum_package 'mongodb'
 
 # Install the MongoDB packages and associated tools.
 #

@@ -59,9 +59,38 @@
         `yum_repository 'mongodb' do
             description "Mongo DB Repo"
             baseurl "http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/"
-            gpgcheck = 0
-            enabled = 1 
+            gpgcheck false
+            enabled true 
             action :create
+        end`
+
+11. Seem to be encountering a conflict between my recipe and my yum repo. Keeps saying no suitable version. Let's try to mitigate that problem by adding some versioning logic. No longer need to assum 64-bit target as we are catching this now.
+
+12. Added versioning logic, build structure but limit case to rhel for now
+
+13. Tested as:
+
+        `Chef::Log.warn("Platform: " + node['platform']) # testing
+        Chef::Log.warn("Platform Version: " + node['platform_version'])
+        package_repo_url = case node['platform']
+        when 'redhat', 'oracle', 'centos' 
+            "https://repo.mongodb.org/yum/redhat/#{node['platform_version'][0]}/mongodb-org/3.6/#{node['kernel']['machine'] =~ /x86_64/ ? 'x86_64' : 'i686'}"
+        # when 'fedora'
+        #  todo
+        # when 'amazon'
+        #  todo
+        end
+        Chef::Log.warn("package_repo_url: " + package_repo_url) # testing
+        #
+        # build yum repo
+        case node['platform_family']
+        when 'rhel', 'amazon', 'fedora'
+          yum_repository 'mongodb-org-3.6' do
+            description 'MongoDB Repository'
+            baseurl package_repo_url
+            gpgcheck false
+            enabled true
+          end
         end`
 
 4. Log-in to my free hosted chef-server on manage.chef.io (left over from tutorials)
