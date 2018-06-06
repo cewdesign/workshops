@@ -97,3 +97,36 @@
             sudo chown -R tomcat webapps/ work/ temp/ logs/
             EOH
         end`
+
+## Tidy up time.
+05-Jun-2018
+
+15. Let's roll up the recipe into a cookbook and add the template.
+
+    > chef generate cookbook ./tomcat_cb
+
+16. Now we can generate the template we need
+
+    > chef generate template ./tomcat_cb tomcat.service
+
+17. Populate the template file with contents using vi.
+
+18. Let's try running java from within the tomcat recipe instead of manually adding it to the node's runlist. Edit default.rb to include below at top.
+
+        `# Install Java
+        include_recipe 'java::openjdk'`
+
+Then add this in metadata.rb for dependency.
+
+        `#Needs Java
+        depends 'java'
+
+19. Upload our tomcat_cb cookbook
+
+  > knife cookbook upload tomcat_cb --cookbook-path ./
+
+20. Run on server
+
+  > sudo chef-client
+
+21. 
