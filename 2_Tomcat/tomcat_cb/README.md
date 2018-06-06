@@ -1,4 +1,4 @@
 # tomcat_cb
 
-TODO: Enter the cookbook description here.
+Cookbook to install apache tomcat onto RHEL7 instance with Java 7
 

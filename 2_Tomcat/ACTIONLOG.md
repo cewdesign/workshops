@@ -131,7 +131,7 @@ Then add this in metadata.rb for dependency.
 
 21. Okay, this isn't working. Time to test manual steps against an identical instance to ensure it works.
 
-# Error Fix
+## Error Fix
 06-Jun-2018
 
 22. AWS console, launch a new one.
@@ -145,3 +145,24 @@ Then add this in metadata.rb for dependency.
 25. Noticed that java cookbook is installing java 6 by default, updated the attributes to point to Java 7.
 
 26. Reupload cookbook. Rerun chef-client on target. Success!
+
+## Improving
+06-Jun-2018
+
+27. Discovered foodcritic! Didn't know about this, let's run it against my tomcat solution!
+
+    > foodcritic --cookbook-path .
+
+      `xx................xx..
+      FC008: Generated cookbook metadata needs updating: ./tomcat_cb/metadata.rb:2
+      FC008: Generated cookbook metadata needs updating: ./tomcat_cb/metadata.rb:3
+      FC013: Use file_cache_path rather than hard-coding tmp paths: ./tomcat_cb/recipes/default.rb:33
+      FC031: Cookbook without metadata.rb file: java/metadata.rb:1
+      FC064: Ensure issues_url is set in metadata: ./tomcat_cb/metadata.rb:1
+      FC065: Ensure source_url is set in metadata: ./tomcat_cb/metadata.rb:1
+      FC067: Ensure at least one platform supported in metadata: ./tomcat_cb/metadata.rb:1
+      FC071: Missing LICENSE file: java/LICENSE:1
+      FC078: Ensure cookbook shared under an OSI-approved open source license: ./tomcat_cb/metadata.rb:1
+      FC093: Generated README text needs updating: tomcat_cb/README.md:1`
+
+28. Corrected errors identified by foodcritic.
