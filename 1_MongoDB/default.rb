@@ -9,10 +9,6 @@
 package_repo_url = case node['platform']
 when 'redhat', 'oracle', 'centos' 
     "https://repo.mongodb.org/yum/redhat/#{node['platform_version'][0]}/mongodb-org/3.6/#{node['kernel']['machine'] =~ /x86_64/ ? 'x86_64' : 'i686'}"
-# when 'fedora'
-#  todo
-# when 'amazon'
-#  todo
 end
 #
 #
