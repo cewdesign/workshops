@@ -129,4 +129,14 @@ Then add this in metadata.rb for dependency.
 
   > sudo chef-client
 
-21. 
+21. Okay, this isn't working. Time to test manual steps against an identical instance to ensure it works.
+
+22. AWS console, launch a new one.
+
+22. Run all the steps manually. Success. Kill that machine now.
+
+23. Run the steps manually one-by-one test tomcat after each to see which recipe step wasn't successful.
+
+24. Okay, right away discover that it is the java install that is bad. Let's fix that in the recipe.
+
+25. Noticed that java cookbook is installing java 6 by default, updated the attributes to 
