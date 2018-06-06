@@ -131,6 +131,9 @@ Then add this in metadata.rb for dependency.
 
 21. Okay, this isn't working. Time to test manual steps against an identical instance to ensure it works.
 
+# Error Fix
+06-Jun-2018
+
 22. AWS console, launch a new one.
 
 22. Run all the steps manually. Success. Kill that machine now.
@@ -139,4 +142,6 @@ Then add this in metadata.rb for dependency.
 
 24. Okay, right away discover that it is the java install that is bad. Let's fix that in the recipe.
 
-25. Noticed that java cookbook is installing java 6 by default, updated the attributes to 
+25. Noticed that java cookbook is installing java 6 by default, updated the attributes to point to Java 7.
+
+26. Reupload cookbook. Rerun chef-client on target. Success!
