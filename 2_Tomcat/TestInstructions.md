@@ -8,7 +8,7 @@
 
 3. Bootstrap the instance
 
-4. Upload tomcat_cb and java cookbooks 
+4. Upload tomcat_cb using berks upload (will upload dependencies as well)
 
 5. Add tomcat_cb to runlist
 
